@@ -1,4 +1,4 @@
 Machine-Learning Through Coursera
 =================================
 
-This is a repository for displaying my in machine learning through taking the Coursera course taught by Andrew Ng.
+This is a repository for displaying everything I've learned while taking Andrew Ng's Coursera course on machine learning.
