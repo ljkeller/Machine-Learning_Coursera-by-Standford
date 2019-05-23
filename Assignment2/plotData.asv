@@ -12,18 +12,14 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
-%Finds addmitted and not addmitted indices
-admitted = find(y==1);
-notAdmitted = find(y==0);
+admitted = find(y==1)
+notAdmitted = find(y==0)
 
-%Plots those admitted exam 2 score vs exam 1
-plot(X(admitted,1), X(admitted,2), 'k+', 'LineWidth', 2, 'MarkerSize', 7);
-plot(X(notAdmitted,1), X(notAdmitted,2), 'ko','MarkerFaceColor','y', 'MarkerSize', 7);
+plot(X(admitted,1), X(admitted,2), 'k+', 'LineWidth', 2,);
+plot(X(notAdmitted,1), X(notAdmitted,2), 'ko' 'MarkerFaceColor', 'y', 'markerSize', 7);
 
-xlabel('Exam 1 Score');
-ylabel('Exam 2 Score');
-
-legend('Admitted', 'Not Admitted');
+xlabel('Exam 1 Score')
+ylabel('Exam 2 Score')
 
 
 
