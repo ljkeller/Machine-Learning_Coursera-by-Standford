@@ -20,7 +20,9 @@ grad = zeros(size(theta));
 
 h = sigmoid(X * theta);
 
+%Vectorized regularized logistic regression. Do not regularize theta(1)!
 J = (-1/m * (y' *log(h) + (1-y)' * log(1-h))) + (lambda/(2*m) * sum(theta.^2));
+J = J - lambda/(2*m) *theta(1)^2
 
 %This is the gradient for regularized logistic regression.
 %We do not regularize theta(1)
