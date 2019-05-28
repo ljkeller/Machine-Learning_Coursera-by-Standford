@@ -22,7 +22,16 @@ grad = zeros(size(theta));
 %       efficiently vectorized. For example, consider the computation
 %
 %           sigmoid(X * theta)
-%
+h = sigmoid(X * theta);
+
+%Vectorized, regularized logistic regression. Must take back regularization
+%of theta(1)
+J = -1/m *(y' * log(h) + (1-y)'*log(1-h)) + (lambda/(2*m) * sum(theta.^2));
+J = J - lambda/(2*m) *theta(1)^2
+
+
+grad = (1/m * (X' * (h - y))) + (lambda/m * theta) ;
+grad(1) = grad(1) - (lambda/m * theta(1,1));
 %       Each row of the resulting matrix will contain the value of the
 %       prediction for that example. You can make use of this to vectorize
 %       the cost function and gradient computations. 
