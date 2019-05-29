@@ -17,26 +17,15 @@ p = zeros(size(X, 1), 1);
 % Add ones to the X data matrix
 X = [ones(m, 1) X];
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Complete the following code to make predictions using
-%               your learned logistic regression parameters (one-vs-all).
-%               You should set p to a vector of predictions (from 1 to
-%               num_labels).
-%
-% Hint: This code can be done all vectorized using the max function.
-%       In particular, the max function can also return the index of the 
-%       max element, for more information see 'help max'. If your examples 
-%       are in rows, then, you can use max(A, [], 2) to obtain the max 
-%       for each row.
-%       
 
+%Objective: Make one vs all predictions by finding max of one-vs-all log 
+%regression of each labeled item in the dataset.
 
+%m is a vector of the max sigmoid value of each predition 1-10
+%p is a vector of the max index in each row of one-vs-all predictions, from
+%1 to num_labels
+[m,p] = max(sigmoid(X * all_theta'), [], 2);
 
-
-
-
-
-% =========================================================================
 
 
 end
