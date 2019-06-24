@@ -21,6 +21,7 @@ Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
 
 Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
                  num_labels, (hidden_layer_size + 1));
+             
 
 % Setup some useful variables
 m = size(X, 1);
@@ -63,20 +64,40 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+%Create colum-vector solutions to each sample
+y_vec = zeros(num_labels, m);
+for i=1:m
+    y_vec(y(i),i) = 1;
+end
+
+hidden_layer = sigmoid(Theta1*[ones(m,1) X]');
+output_layer = sigmoid(Theta2*[ones(1,m); hidden_layer]);
+
+
+J = (1/m) * sum( sum( -y_vec .* log(output_layer) - (1 - y_vec) .* log(1 - output_layer) ))
+
+
+
+% [m, h] = max(output_layer, [], 1);
 
 
 
 
 
+% y
+% h
 
+% %Because implementing for first time, iterating over training set using
+% %for-loop
+% 
+% for i=1:m
+%     for k=1:num_labels:
+%         h = sigmoid(X(i)*the)
+%     
 
-
-
-
-
-
-
-
+% for k=1:num_labels:
+%     for i=1:m:
+%         J = J + 1/m * (y_vec
 
 
 
