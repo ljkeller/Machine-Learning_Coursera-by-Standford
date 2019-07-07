@@ -76,7 +76,8 @@ output_layer = sigmoid(Theta2*[ones(1,m); hidden_layer]);
 
 J = (1/m) * sum( sum( -y_vec .* log(output_layer) - (1 - y_vec) .* log(1 - output_layer) ))
 
-
+J = J + lambda/(2*m) * (sum(Theta1.^2) + sum(Theta2.^2))
+J = J - lambda/(2*m) * (sum(Theta1(:,1).^2 + sum(Theta2(:,1).^2)))
 
 % [m, h] = max(output_layer, [], 1);
 
