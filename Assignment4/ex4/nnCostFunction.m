@@ -64,22 +64,25 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
-%Create colum-vector solutions to each sample
+%Create colum-vector solutions to each sample. 9 0's 1 '1'
 y_vec = zeros(num_labels, m);
 for i=1:m
     y_vec(y(i),i) = 1;
 end
 
+% Creates a 25x5000 matrix
 hidden_layer = sigmoid(Theta1*[ones(m,1) X]');
+% Creates a 10x5000 matrix
 output_layer = sigmoid(Theta2*[ones(1,m); hidden_layer]);
 
 
 J = (1/m) * sum( sum( -y_vec .* log(output_layer) - (1 - y_vec) .* log(1 - output_layer) ))
 
-J = J + lambda/(2*m) * (sum(Theta1.^2) + sum(Theta2.^2))
-J = J - lambda/(2*m) * (sum(Theta1(:,1).^2 + sum(Theta2(:,1).^2)))
 
-% [m, h] = max(output_layer, [], 1);
+J = J + lambda/(2*m) .* (sum( sum(Theta1.^2)) + sum( sum(Theta2.^2)))
+J = J - lambda/(2*m) .* (sum( sum(Theta1(:,1).^2) + sum( sum(Theta2(:,1).^2))))
+
+% [m, h] = max(output_la.yer, [], 1);
 
 
 
