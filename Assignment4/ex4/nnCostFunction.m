@@ -32,37 +32,6 @@ Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
 % ====================== YOUR CODE HERE ======================
-% Instructions: You should complete the code by working through the
-%               following parts.
-%
-% Part 1: Feedforward the neural network and return the cost in the
-%         variable J. After implementing Part 1, you can verify that your
-%         cost function computation is correct by verifying the cost
-%         computed in ex4.m
-%
-% Part 2: Implement the backpropagation algorithm to compute the gradients
-%         Theta1_grad and Theta2_grad. You should return the partial derivatives of
-%         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
-%         Theta2_grad, respectively. After implementing Part 2, you can check
-%         that your implementation is correct by running checkNNGradients
-%
-%         Note: The vector y passed into the function is a vector of labels
-%               containing values from 1..K. You need to map this vector into a 
-%               binary vector of 1's and 0's to be used with the neural network
-%               cost function.
-%
-%         Hint: We recommend implementing backpropagation using a for-loop
-%               over the training examples if you are implementing it for the 
-%               first time.
-%
-% Part 3: Implement regularization with the cost function and gradients.
-%
-%         Hint: You can implement this around the code for
-%               backpropagation. That is, you can compute the gradients for
-%               the regularization separately and then add them to Theta1_grad
-%               and Theta2_grad from Part 2.
-%
-
 
 %Create colum-vector solutions to each sample. 9 0's 1 '1'
 y_vec = zeros(num_labels, m);
@@ -84,26 +53,43 @@ J = J - lambda/(2*m) .* (sum( sum(Theta1(:,1).^2) + sum( sum(Theta2(:,1).^2))));
 
 % [m, h] = max(output_la.yer, [], 1);
 
+a_1 = 0;
+a_2 = 0;
+a_3 = 0;
+z_2 = 0;
+z_3 = 0;
+delta_3 = 0;
+delta_2 = 0;
 
 
+DELTA_2 = 0;
+DELTA_1 = 0;
+in = X';
+for t = 1:m
+    %Perform forward prop
+    a_1 = [1; in(:, t)]; %401x1
+    z_2 = Theta1 * a_1; %25x1
+    a_2 = [1; sigmoid(z_2)];%26x1
+    z_3 = Theta2 * a_2;%10x1
+    a_3 = sigmoid(z_3);%10x1
+   
+    
+    %Perform backprop
+    delta_3 = a_3 - y_vec(:,t);
+    delta_2 = ((Theta2)' * delta_3).* sigmoidGradient([1; z_2]);
+    
+    %Accumulate the gradient
+    DELTA_2 = DELTA_2 + (delta_3) * a_2';
+    DELTA_1 = DELTA_1 + (delta_2(2:end)) * a_1';
+end
 
-
-% y
-% h
-
-% %Because implementing for first time, iterating over training set using
-% %for-loop
-% 
-% for i=1:m
-%     for k=1:num_labels:
-%         h = sigmoid(X(i)*the)
-%     
-
-% for k=1:num_labels:
-%     for i=1:m:
-%         J = J + 1/m * (y_vec
-
-
+%In order to calculte gradient, must consider how regularization affects. 
+%Essentially, we can ignore first columns of Thetas, as they carry the bias
+%weights
+Theta1_grad = (1/m) * DELTA_1; %25x401
+Theta1_grad(:, 2:end) = Theta1_grad(:, 2:end) + (lambda/m) * Theta1(:,2:end);
+Theta2_grad = (1/m) * DELTA_2; %10x26
+Theta2_grad(:, 2:end) = Theta2_grad(:, 2:end) + (lambda/m) * Theta2(:,2:end);
 
 % -------------------------------------------------------------
 
